@@ -4,15 +4,25 @@ function MessageList({ messages, typing }) {
   // Updated helper function to format message content
   const formatMessageContent = (message) => {
     if (typeof message !== 'string') return '';
+  
     return message
-      .replace(/\*\*(.*?)\*\*/g, '$1')   // remove **bold markers**
-      .replace(/^\*\s*/gm, '')            // remove starting single *
-      .replace(/\*/g, '')                 // remove remaining * if any
-      .replace(/(^|\n)([A-Z][^:\n]{1,30}):/g, '$1<br><strong>$2:</strong>')  // make titles bold
-      .replace(/^\d+\.\s*(.+?):/gm, '<br><strong>$1:</strong>') 
+      // Bold labels like "Tops:", "Shoes:" etc.
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+  
+      // Convert markdown-style lists into HTML list elements
+      .replace(/(?:^|\n)[*-]\s+(.*?)(?=\n|$)/g, '<li>$1</li>')
+  
+      // Wrap <li> elements inside <ul>
+      .replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>')
+  
+      // Replace line breaks with <br>, avoiding inside <ul>
       .replace(/\n/g, '<br>')
+      .replace(/(<ul>.*?)<br>(.*?<\/ul>)/gs, '$1$2')
+  
+      // Reduce triple or more <br> to just double
       .replace(/(<br>\s*){3,}/g, '<br><br>');
   };
+  
 
   return (
     <>
