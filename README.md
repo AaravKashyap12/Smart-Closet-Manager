@@ -73,4 +73,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### Portfolio
 
-See more of my work at [https://www.aaravkashyap.live/](https://www.aaravkashyap.live/)..
+See more of my work at [https://www.aaravkashyap.live/](https://www.aaravkashyap.live/).
